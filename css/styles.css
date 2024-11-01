@@ -121,15 +121,21 @@ section{
     font-size: 6rem;
     text-transform: uppercase;
     color: #fff;
+    margin-top: -30%;
 }
 .home .content p{
-    font-size: 2rem;
+    font-size: 20px;
     font-weight: lighter;
     line-height: 1.8;
-    padding: 1rem 0;
+    padding: 5px;
     color: #eee;
 }
+ .home .content img{
+    padding-top: 20%;
+    padding-left: 120%;
+    width: 50%;
 
+ }
 
 
 
