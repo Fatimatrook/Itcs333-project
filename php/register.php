@@ -1,268 +1,153 @@
-<!DOCTYPE html>
-<html>
-  <s>
-    <title>Registration Page</title>
-<style>
+<?php
+session_start();
 
-body {
+// Simple in-memory storage (replace with database in real-world scenario)
+if (!isset($_SESSION["users"])) {
+    $_SESSION["users"] = [];
+}
+
+$users = &$_SESSION["users"]; // Use reference to avoid global keyword
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate input
+    $username = trim($_POST['username']);
+    $password = $_POST['password'];
+    $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
+    $number = trim($_POST['number']);
+    $gender = $_POST['gender'];
+
+    // Check for empty fields and valid email
+    if (empty($username) || empty($password) || !$email || empty($number) || empty($gender)) {
+        $_SESSION['registration_error'] = "All fields are required and email must be valid.";
+        header("Location: registration.php");
+        exit();
+    }
+
+    // Check if username already exists
+    if (isset($users[$username])) {
+        $_SESSION['registration_error'] = "Username already exists.";
+        header("Location: registration.php");
+        exit();
+    }
+
+    // Hash the password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Store user details (consider storing additional details like email, number, gender in a real database)
+    $users[$username] = [
+        'password' => $hashed_password,
+        'email' => $email,
+        'number' => $number,
+        'gender' => $gender,
+    ];
+
+    $_SESSION['registration_success'] = "Registration successful. You can now log in.";
+    header("Location: login.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+    :root {
+    --first-color: #243642;
+    --second-color: #387478;
+    --third-color: #629584;
+    --forth-color: #E2F1E7;}
+    body {
     margin: 0;
     padding: 0;
-    font-family: Arial;
-    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
     height: 100vh; 
     display: flex; 
-    justify-content: center; 
+    justify-content: center;
     align-items: center; 
-}
-:root{
-    --first-color:#243642;
-    --seconed-color: #387478;
-    --third-color:#629584;
-    --forth-color: #E2F1E7;
-}
-html{
-    font-size: 62.5%;
-    overflow-x: hidden;
-    scroll-padding-top: 9rem;
-    scroll-behavior: smooth;
-}
+    background: var(--forth-color);}
 
-html::-webkit-scrollbar{
-    width: .8rem;
-}
-html::-webkit-scrollbar-track{
-    background: transparent;
-}
-html::-webkit-scrollbar-thumb{
-    background: #ffffff;
-    border-radius: 5rem;
-}
-body{
-    background: var(--forth-color);
-}
-section{
-    padding: 2rem 7%;
-}
-.btn{
-    margin-top: 1rem;
-    display: inline-block;
-    padding: .9rem 3rem;
-    font-size: 1.7rem;
-    color: #fff;
-    background:var(--first-color) ;
-    cursor: pointer;
-}
-.btn:hover{
-    letter-spacing: .1rem;
-}
-.header{
-    background: var(--forth-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between ;
-    padding: 1.5rem 7%;
-    border-bottom: var(--first-color);
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-}
-.header .logo img{
-    height: 6rem;
-}
-.header .navbar a{
-    margin:0 1rem;
-    font-size: 1.6rem;
-    color: var(--first-color);
-}
-.header .navbar a:hover{
-    color: var(--seconed-color);
-    border-bottom: .1rem solid var(--seconed-color);
-    padding-bottom: .5rem;
-}
-.header .icons div{
-    color: var(--first-color);
-    cursor: pointer;
-    font-size: 2.5rem;
-    margin-left: 2rem;
-}
-.header .icons div:hover{
-    color: var(--seconed-color);
-}
-#menu-btn{
-    display: none;
-}
-.header .search-form{
-    position: absolute;
-    top: 115%; right: 7%;
-    background: var(--forth-color);
-    width: 50rem;
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    transform: scaleY(0);
-    transform-origin: top;
-}
-.header .search-form.active{
-    transform: scaleY(1);
-
-}
-.header .search-form input{
-    height: 100%;
-    width: 100%;
-    font-size: 1.6rem;
-    color: #000;
-    padding: 1rem;
-    text-transform: none;
-}
-.header .search-form label{
-    cursor: pointer;
-    font-size: 2.2rem;
-    margin-right: 1.5rem;
-    color: #000;
-}
-.header .search-form label:hover{
-  color: var(--first-color);
-}
-
-/* Center the container */
-.container {
-    max-width: 400px; 
-    padding: 20px;}
-
-/* Style the heading */
-h1 {
-    text-align: center;
+    h2 {
     color: #333;
-    margin: 0; }
+    margin: 0px;
+    text-align: center;
+    margin-bottom: 20px;}
 
-/* Style for the form groups */
-.form-group {
-    margin-bottom: 15px; 
-    display: flex;
-    align-items: center; 
-}
+    form {
+    background: var(--forth-color); 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    width: 400px; 
+    height: 500px; }
 
-/* Style for labels */
-label {
-    flex: 1; 
-    margin-right: 10px; 
-    color: #555;
-}
+    .input-group {margin-bottom: 15px; }
 
-/* Style for input fields */
-.form-control {
-    flex: 2; 
-    padding: 10px;
+    label {
+    display: block; 
+    margin-top: 10px;
+    margin-bottom: 2px;
+    color: #555; }
+
+    input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+    width: 100%; 
+    padding: 10px; 
     border: 1px solid #ccc; 
-    border-radius: 4px;
-    
-}
+    border-radius: 4px; 
+    box-sizing: border-box;}
 
-/* Style for radio buttons */
-.radio-inline {
-    margin-right: 10px; 
-}
-
-/* Style for submit button */
-.btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
+    input[type="submit"] {
+    width: 100%; 
+    padding: 10px; 
+    background: var(--third-color);
+    color: white; 
     border: none; 
     border-radius: 4px; 
     cursor: pointer; 
-    font-size: 16px; 
-}
+    font-size: 16px;}
+    input[type="submit"]:hover {background: var(--forth-color);}
 
-/* Button hover effect */
-.btn:hover {
-    background-color: #4666; 
-}
+    p {
+    text-align: center; 
+    margin-top: 550px;
+    margin-right: 30%;
+    color: var(--second-color);
+    }
 
+    a {
+    color: #007bff; 
+    text-decoration: none; }
+    a:hover {text-decoration: underline; }
+
+    .error {
+    color: red;
+    text-align: center;}
 
 </style>
-
 </head>
-  <body>
-    <!--Header start-->    
-    <header class="header">
+<body>
+    <h2>Register</h2>
+    <form action="connect.php" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
         
-        <!-- this is for  uob logo-->
-        <a href="#" class="logo"><img src="images/UOB LOGO.png" alt="uob logo"></a>
-        <!-- this is for  uob logo end-->    
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="number">Number:</label>
+        <input type="number" id="number" name="number" required><br><br>
+
+        <label for="gender">Gender:</label><label for="male" class="radio">
+        <input type="radio" id="male" name="gender" value="M">Male</label>
+        <input type="radio" id="female" name="gender" value="F">Female</label><br><br>
         
-        <!--navbar-->
-        <nav class="navbar">
-            <a href="#home">Home</a>
-            <a href="#about">About us</a>
-            <a href="php/login.php">Log in</a>
-            <a href="#rooms">Rooms</a>
-            <a href="#contact">Contact us</a>
-            <a href="#reviews">Reviews</a>
-        </nav>
-        <!--navbar end-->
-        <div class="icons">
-            <div class="fas fa-search" id="search-btn"></div>
-            <div class="fas fa-bars" id="menu-btn"></div>
-        </div>
-
-        <div class="search-form">
-            <input type="search" id="search-box" placeholder="search here...">
-            <label for="search-box" class="fas fa-search"></label>
-        </div>
-    </header>
-    <!--Header end-->
-    
-    <div class="container">
-            <h1>Registration</h1>
-          </div>
-         
-          <div class="body">
-            <form action="connect.php" method="post">
-              <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" class="form-control" id="firstName" name="firstName"/>
-              </div>
-
-              <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="lastName"/>
-              </div>
-
-            <div class="form-group">
-                <label for="gender">Gender</label>
-            <div>
-                <labe for="male" class="radio-inline">
-                <input type="radio" name="gender" value="m" id="male">Male</labe>
-                      
-                <label for="female" class="radio-inline">
-                <input type="radio"name="gender"value="f"id="female">Female</label>
-            </div>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="email">
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="phone" class="form-control" id="phone" name="phone">
-            </div>
-
-            <input type="submit" class="btn">
-            </form>
-          </div>
-         
-        </div>
-      </div>
-    </div>
-  
-  </body>
+        <input type="submit" value="Register">
+    </form>
+    <p>Already have an account? <a href="login.php">Login</a></p>
+</body>
 </html>
