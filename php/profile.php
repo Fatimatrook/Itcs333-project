@@ -72,7 +72,7 @@ input[type="radio"] {margin-right: 5px;}
     <h2>User Profile</h2>
 
     <div class="profile-photo">
-        <img src="<?php echo isset($user['profile_photo']) ? htmlspecialchars($user['profile_photo']) : 'default.jpg'; ?>" alt="Profile Photo" class="profile-img">
+        <!--<img src="<?php echo isset($user['profile_photo']) ? htmlspecialchars($user['profile_photo']) : 'default.jpg'; ?>" alt="Profile Photo" class="profile-img">-->
     </div>
 
     <form action="profile.php" method="post" enctype="multipart/form-data">

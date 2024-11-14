@@ -79,6 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     background: var(--forth-color); 
     padding: 20px; 
     border-radius: 8px; 
+    align-items: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
     width: 400px; 
     height: 500px; }
@@ -101,17 +102,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     input[type="submit"] {
     width: 100%; 
     padding: 10px; 
-    background: var(--third-color);
+    background: var(--first-color);
     color: white; 
     border: none; 
     border-radius: 4px; 
     cursor: pointer; 
     font-size: 16px;}
-    input[type="submit"]:hover {background: var(--forth-color);}
+    input[type="submit"]:hover {background: var(--second-color);}
 
     p {
     text-align: center; 
-    margin-top: 550px;
+    margin-top: 650px;
     margin-right: 30%;
     color: var(--second-color);
     }
@@ -128,7 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 </head>
 <body>
-    <h2>Register</h2>
     <form action="connect.php" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>

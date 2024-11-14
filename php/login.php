@@ -14,19 +14,20 @@
             display: flex; 
             justify-content: center;
             align-items: center; 
-            background: var(--forth-color);
-        }
+            background: var(--forth-color);}
+
         :root {
             --first-color: #243642;
             --second-color: #387478;
             --third-color: #629584;
-            --forth-color: #E2F1E7;
-        }
+            --forth-color: #E2F1E7;}
+
         h2 {
             text-align: center;
             color: #333;
-            margin: 10; 
-        }
+            margin: 10; }
+
+            
         form {
             background: var(--forth-color); 
             padding: 20px; 
