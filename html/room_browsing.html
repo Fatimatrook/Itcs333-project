@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Booking System</title>
+    <link rel="stylesheet" href="styles3.css">
+    <script>
+        // Function to display room details when a room image is clicked
+        function showRoomDetails(roomId) {
+            // Hide all room details sections
+            const allDetails = document.querySelectorAll('.room-details');
+            allDetails.forEach(detail => detail.style.display = 'none');
+            
+            // Show the selected room details
+            const selectedRoomDetail = document.getElementById('room-' + roomId);
+            if (selectedRoomDetail) {
+                selectedRoomDetail.style.display = 'block';
+            }
+        }
+
+        // Function to handle booking action (just a placeholder function for now)
+        function bookRoom(roomId) {
+            alert('Room ' + roomId + ' has been booked! (This is a placeholder action)');
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Available Rooms</h1>
+    </header>
+
+    <section class="room-list">
+        <!-- Room Images (Click to View Details) -->
+        <div class="room-item" onclick="showRoomDetails(101)">
+            <img src="room101.jpg" alt="Room 101" />
+            <h2>Room 101</h2>
+        </div>
+        <div class="room-item" onclick="showRoomDetails(102)">
+            <img src="room102.jpg" alt="Room 102" />
+            <h2>Room 102</h2>
+        </div>
+
+        <div class="room-item" onclick="showRoomDetails(103)">
+            <img src="room103.jpg" alt="Room 103" />
+            <h2>Room 103</h2>
+        </div>
+
+        <div class="room-item" onclick="showRoomDetails(104)">
+            <img src="room104.jpg" alt="Room 104" />
+            <h2>Room 104</h2>
+        </div>
+    </section>
+
+    <section>
+        <!-- Room Details (Initially hidden) -->
+        <div id="room-101" class="room-details" style="display: none;">
+            <h2>Room 101 - Detailed Information</h2>
+            <p><strong>Capacity:</strong> 20 people</p>
+            <p><strong>Available Equipment:</strong> Projector, Whiteboard</p>
+
+            <h3>Available Time Slots</h3>
+            <ul>
+                <li>9:00 AM - 11:00 AM</li>
+                <li>11:00 AM - 1:00 PM</li>
+                <li>1:00 PM - 3:00 PM</li>
+                <li>3:00 PM - 5:00 PM</li>
+            </ul>
+
+            <!-- Book Room Button -->
+            <a href="booking.html?room=101" class="booking-btn">Book Room 101</a>
+
+        </div>
+
+        <div id="room-102" class="room-details" style="display: none;">
+            <h2>Room 102 - Detailed Information</h2>
+            <p><strong>Capacity:</strong> 15 people</p>
+            <p><strong>Available Equipment:</strong> Projector</p>
+
+            <h3>Available Time Slots</h3>
+            <ul>
+                <li>9:00 AM - 11:00 AM</li>
+                <li>11:00 AM - 1:00 PM</li>
+                <li>1:00 PM - 3:00 PM</li>
+                <li>3:00 PM - 5:00 PM</li>
+            </ul>
+
+            <!-- Book Room Button -->
+            <a href="booking.html?room=102" class="booking-btn">Book Room 102</a>
+        </div>
+
+        <div id="room-103" class="room-details" style="display: none;">
+            <h2>Room 103 - Detailed Information</h2>
+            <p><strong>Capacity:</strong> 25 people</p>
+            <p><strong>Available Equipment:</strong> Whiteboard</p>
+
+            <h3>Available Time Slots</h3>
+            <ul>
+                <li>9:00 AM - 11:00 AM</li>
+                <li>11:00 AM - 1:00 PM</li>
+                <li>1:00 PM - 3:00 PM</li>
+                <li>3:00 PM - 5:00 PM</li>
+            </ul>
+
+                <!-- Book Room Button -->
+                <a href="booking.html?room=103" class="booking-btn">Book Room 103</a>
+            </div>
+
+
+            <div id="room-104" class="room-details" style="display: none;">
+                <h2>Room 104 - Detailed Information</h2>
+                <p><strong>Capacity:</strong> 21 people</p>
+                <p><strong>Available Equipment:</strong> Whiteboard</p>
+    
+                <h3>Available Time Slots</h3>
+                <ul>
+                    <li>9:00 AM - 11:00 AM</li>
+                    <li>11:00 AM - 1:00 PM</li>
+                    <li>1:00 PM - 3:00 PM</li>
+                    <li>3:00 PM - 5:00 PM</li>
+                </ul>
+
+            
+            <!-- Book Room Button -->
+            <a href="booking.html?room=104" class="booking-btn">Book Room 104</a>
+        </div>
+
+    </section>
+
+</body>
+</html>
