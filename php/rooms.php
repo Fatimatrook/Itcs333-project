@@ -1,5 +1,5 @@
-<?php
 
+<?php
 session_start();
 
 // Database connection
@@ -12,21 +12,27 @@ if ($conn->connect_error) {
 $sql_rooms = "SELECT * FROM rooms";
 $result_rooms = $conn->query($sql_rooms);
 
-// Check if a room has been selected for booking
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['room_id'])) {
-    $user_id = $_SESSION['user_id']; // Assuming you have a user session
+// Fetch available timeslots for booking
+$sql_timeslots = "SELECT * FROM timeslots";
+$result_timeslots = $conn->query($sql_timeslots);
+
+// Handle room booking
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $_SESSION['user_id']; // Assuming user is logged in and user_id is stored in session
     $room_id = $_POST['room_id'];
     $booking_date = $_POST['booking_date'];
     $timeslot = $_POST['timeslot'];
 
-    // Check if the room is already booked for the selected date and time
-    $stmt = $conn->prepare("SELECT * FROM bookings WHERE room_id = ? AND booking_date = ? AND timeslot = ?");
-    $stmt->bind_param("iss", $room_id, $booking_date, $timeslot);
-    $stmt->execute();
-    $stmt_result = $stmt->get_result();
+    // Check if the room is already booked for the selected date and timeslot
+    $stmt_check = $conn->prepare("SELECT * FROM bookings WHERE room_id = ? AND booking_date = ? AND timeslot = ?");
+    $stmt_check->bind_param("iss", $room_id, $booking_date, $timeslot);
+    $stmt_check->execute();
+    $stmt_check_result = $stmt_check->get_result();
 
-    if ($stmt_result->num_rows == 0) {
-        // Insert new booking into the database
+    if ($stmt_check_result->num_rows > 0) {
+        $_SESSION['booking_error'] = "This room is already booked for the selected date and timeslot.";
+    } else {
+        // Insert booking into the database
         $stmt_insert = $conn->prepare("INSERT INTO bookings (user_id, room_id, booking_date, timeslot) VALUES (?, ?, ?, ?)");
         $stmt_insert->bind_param("iiss", $user_id, $room_id, $booking_date, $timeslot);
 
@@ -37,12 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['room_id'])) {
         }
 
         $stmt_insert->close();
-    } else {
-        $_SESSION['booking_error'] = "This room is already booked for the selected date and timeslot.";
     }
 
-    $stmt->close();
-    header("Location: rooms.php"); 
+    $stmt_check->close();
+    header("Location: rooms.php"); // Refresh the page after booking
     exit();
 }
 
@@ -53,17 +57,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['room_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browse Rooms - IT Room Booking System</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Room Booking System</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<section class="room-browsing">
-    <div class="content">
-        <h3>Browse Available Rooms</h3>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <a href="index.php">Home</a>
+            <a href="rooms.php">Rooms</a>
+            <a href="profile.php">Profile</a>
+            <a href="contact.php">Contact</a>
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <a href="logout.php">Logout</a>
+            <?php else: ?>
+                <a href="login.php">Login</a>
+            <?php endif; ?>
+        </nav>
+    </header>
 
-        <!-- Display success or error message after booking -->
+    <!-- Main Section -->
+    <section class="main-section">
         <?php
+        // Show success or error messages for booking
         if (isset($_SESSION['booking_success'])) {
             echo "<p style='color:green'>" . $_SESSION['booking_success'] . "</p>";
             unset($_SESSION['booking_success']);
@@ -72,44 +89,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['room_id'])) {
             echo "<p style='color:red'>" . $_SESSION['booking_error'] . "</p>";
             unset($_SESSION['booking_error']);
         }
-        ?>
 
-        <?php if ($result_rooms->num_rows > 0): ?>
+        // Check if room_id is set for viewing details
+        if (isset($_GET['room_id'])) {
+            $room_id = $_GET['room_id'];
+
+            // Fetch selected room details
+            $stmt_room = $conn->prepare("SELECT * FROM rooms WHERE id = ?");
+            $stmt_room->bind_param("i", $room_id);
+            $stmt_room->execute();
+            $result_room = $stmt_room->get_result();
+            $room = $result_room->fetch_assoc();
+
+            // Fetch available timeslots for this room
+            $stmt_timeslots = $conn->prepare("SELECT * FROM timeslots");
+            $stmt_timeslots->execute();
+            $result_timeslots = $stmt_timeslots->get_result();
+
+            // Display room details
+            echo "<h2>Room Details: " . htmlspecialchars($room['room_name']) . "</h2>";
+            echo "<p><strong>Capacity:</strong> " . $room['capacity'] . " people</p>";
+            echo "<p><strong>Equipment:</strong> " . htmlspecialchars($room['equipment']) . "</p>";
+            ?>
+
+            <!-- Booking Form for the Selected Room -->
+            <h3>Available Timeslots</h3>
             <form action="rooms.php" method="POST">
-                <div class="form-group">
-                    <label for="room_id">Select Room:</label>
-                    <select id="room_id" name="room_id" required>
-                        <?php while ($room = $result_rooms->fetch_assoc()): ?>
-                            <option value="<?php echo $room['id']; ?>">
-                                <?php echo htmlspecialchars($room['room_name']) . " (Capacity: " . $room['capacity'] . ")"; ?>
+                <input type="hidden" name="room_id" value="<?php echo $room['id']; ?>">
+
+                <div class="timeslot-selection">
+                    <label for="timeslot">Select Timeslot:</label>
+                    <select name="timeslot" id="timeslot" required>
+                        <?php while ($timeslot = $result_timeslots->fetch_assoc()): ?>
+                            <option value="<?php echo $timeslot['id']; ?>">
+                                <?php echo $timeslot['time']; ?>
                             </option>
                         <?php endwhile; ?>
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="date-selection">
                     <label for="booking_date">Select Date:</label>
-                    <input type="date" id="booking_date" name="booking_date" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="timeslot">Select Timeslot:</label>
-                    <input type="time" id="timeslot" name="timeslot" required>
+                    <input type="date" name="booking_date" id="booking_date" required>
                 </div>
 
                 <button type="submit" class="btn">Book Room</button>
             </form>
-        <?php else: ?>
-            <p>No rooms available at the moment.</p>
-        <?php endif; ?>
-    </div>
-</section>
+
+            <?php
+            $stmt_room->close();
+            $stmt_timeslots->close();
+        } else {
+            // Room Browsing: Display all available rooms
+            echo "<h2>Browse Available Rooms</h2>";
+
+            echo "<div class='room-grid'>";
+            while ($room = $result_rooms->fetch_assoc()) {
+                echo "<div class='room-card'>";
+                echo "<h3>" . htmlspecialchars($room['room_name']) . "</h3>";
+                echo "<p><strong>Capacity:</strong> " . $room['capacity'] . " people</p>";
+                echo "<p><strong>Equipment:</strong> " . htmlspecialchars($room['equipment']) . "</p>";
+                echo "<a href='rooms.php?room_id=" . $room['id'] . "' class='btn'>View Details</a>";
+                echo "</div>";
+            }
+            echo "</div>";
+        }
+        ?>
+
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 IT College. All Rights Reserved.</p>
+    </footer>
 
 </body>
 </html>
 
 <?php
-// Close the database connection
 $conn->close();
 ?>
-
