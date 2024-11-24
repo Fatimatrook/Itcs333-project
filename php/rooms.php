@@ -16,7 +16,7 @@ $result_rooms = $conn->query($sql_rooms);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Booking System</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link your main styles here -->
+    <link rel="stylesheet" href="styles.css">
     <script>
         // Function to display room details when a room image is clicked
         function showRoomDetails(roomId) {
