@@ -11,6 +11,9 @@ if ($conn->connect_error) {
 $sql_rooms = "SELECT * FROM rooms";
 $result_rooms = $conn->query($sql_rooms);
 
+// Get room_id from the URL
+$selected_room_id = isset($_GET['room_id']) ? intval($_GET['room_id']) : null;
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION['user_id']; 
