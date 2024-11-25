@@ -1,13 +1,21 @@
+
 <?php
 session_start();
 $conn = new mysqli('localhost', 'root', '', 'itcs333project');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+    require_once 'common-db-setting.php'; // Ensure you have the database connection here
+
 }
 
-// Fetch rooms from the database
+
+// Fetch all rooms
 $sql_rooms = "SELECT * FROM rooms";
 $result_rooms = $conn->query($sql_rooms);
+
+if ($result_rooms->num_rows == 0) {
+    echo "<p>No rooms available.</p>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +23,8 @@ $result_rooms = $conn->query($sql_rooms);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>Room Browsing - IT Room Booking System</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* Basic styles for the rooms page */
         body {
@@ -70,17 +78,24 @@ $result_rooms = $conn->query($sql_rooms);
 </head>
 <body>
 
-<h1>Available Rooms</h1>
-<div class="room-container">
-    <?php while ($room = $result_rooms->fetch_assoc()): ?>
-        <div class="room-card" data-room-id="<?php echo $room['id']; ?>">
-            <h3><?php echo htmlspecialchars($room['room_name']); ?></h3>
-            <p>Capacity: <?php echo $room['capacity']; ?></p>
-            <p>Equipment: <?php echo htmlspecialchars($room['equipment']); ?></p>
-            <a href="booking.php?room_id=<?php echo $room['id']; ?>" class="btn">Book Now</a>
+<section class="home">
+    <div class="content">
+        <h3>Available Rooms</h3>
+
+        <div class="room-list">
+            <?php
+            while ($room = $result_rooms->fetch_assoc()) {
+                // Display each room with a link to its details page
+                echo '<div class="room">';
+                echo '<h4>' . htmlspecialchars($room['room_name']) . '</h4>';
+                echo '<p>Capacity: ' . htmlspecialchars($room['capacity']) . ' people</p>';
+                echo '<a href="room-details.php?room_id=' . $room['id'] . '" class="btn">View Details</a>';
+                echo '</div>';
+            }
+            ?>
         </div>
-    <?php endwhile; ?>
-</div>
+    </div>
+</section>
 
 </body>
 </html>

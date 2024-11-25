@@ -68,3 +68,41 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- --------------------------------------------------------
+
+
+-- Table structure for table `rooms`
+--
+
+CREATE TABLE `rooms` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `room_name` varchar(50) NOT NULL,
+  `capacity` int(11) NOT NULL,
+  `equipment` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dumping data for table `rooms`
+
+INSERT INTO `rooms` (`room_name`, `capacity`, `equipment`) VALUES
+('Room A', 10, 'Projector, Whiteboard, Wi-Fi'),
+('Room B', 20, 'Projector, Conference Phone, Wi-Fi'),
+('Room C', 15, 'Whiteboard, Wi-Fi'),
+('Room D', 30, 'Projector, Conference Phone, Wi-Fi, Air Conditioning');
+
+-- Indexes for table `rooms`
+ALTER TABLE `rooms`
+  ADD PRIMARY KEY (`id`);
+
+-- AUTO_INCREMENT for table `rooms`
+
+ALTER TABLE `rooms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;                                                                                        
