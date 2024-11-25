@@ -4,8 +4,6 @@ session_start();
 $conn = new mysqli('localhost', 'root', '', 'itcs333project');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-    require_once 'common-db-setting.php'; // Ensure you have the database connection here
-
 }
 
 
@@ -13,8 +11,9 @@ if ($conn->connect_error) {
 $sql_rooms = "SELECT * FROM rooms";
 $result_rooms = $conn->query($sql_rooms);
 
-if ($result_rooms->num_rows == 0) {
-    echo "<p>No rooms available.</p>";
+if ($result_rooms === false) {
+    echo "<p>Error retrieving rooms: " . $conn->error . "</p>";
+    $result_rooms = null;
 }
 ?>
 
@@ -84,6 +83,7 @@ if ($result_rooms->num_rows == 0) {
 
         <div class="room-list">
             <?php
+           if ($result_rooms && $result_rooms->num_rows > 0) {
             while ($room = $result_rooms->fetch_assoc()) {
                 // Display each room with a link to its details page
                 echo '<div class="room">';
@@ -91,6 +91,9 @@ if ($result_rooms->num_rows == 0) {
                 echo '<p>Capacity: ' . htmlspecialchars($room['capacity']) . ' people</p>';
                 echo '<a href="room-details.php?room_id=' . $room['id'] . '" class="btn">View Details</a>';
                 echo '</div>';
+            }
+        }else{ echo"<p>No rooms available...</p>";
+
             }
             ?>
         </div>
