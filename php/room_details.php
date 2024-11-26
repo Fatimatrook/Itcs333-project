@@ -67,6 +67,128 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Details - IT Room Booking System</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+       :root {
+            --first-color: #243642;
+            --seconed-color: #387478;
+            --third-color: #629584;
+            --forth-color: #E2F1E7;
+        }
+
+        body {
+            background-color: var(--forth-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--first-color);
+        }
+
+        header.header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--seconed-color);
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .logo img {
+            height: 50px;
+        }
+
+        header .navbar a {
+            color: var(--forth-color);
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        header .navbar a:hover {
+            color: var(--third-color);
+        }
+
+        header .icons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        header .search-form {
+            display: none;
+        }
+
+        h3 {
+            text-align: center;
+            color: var(--first-color);
+            margin: 20px 0;
+        }
+
+        .room-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start; 
+            padding: 20px;
+        }
+
+        .room-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .room-card img {
+            width: 40px;
+            height: 4px0px;
+            float: left;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            margin-right: 40px; 
+        }
+
+        .room-card h4 {
+            margin: 10px 0;
+            font-size: 20px;
+            color: var(--first-color);
+        }
+
+        .room-card p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: var(--third-color);
+        }
+
+        .btn {
+            display: flex;
+            background-color: var(--seconed-color);
+            width: 100%; 
+            justify-content: space-between; 
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center; 
+            flex: 1; 
+            margin: 0 5px; 
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--first-color);
+        }
+    </style>
 </head>
 <body>
 
