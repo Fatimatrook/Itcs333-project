@@ -25,121 +25,129 @@ if ($result_rooms === false) {
     <title>Room Browsing - IT Room Booking System</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-       :root {
-            --first-color: #243642;
-            --seconed-color: #387478;
-            --third-color: #629584;
-            --forth-color: #E2F1E7;
-        }
+    :root {
+        --first-color: #243642;
+        --seconed-color: #387478;
+        --third-color: #629584;
+        --forth-color: #E2F1E7;
+    }
 
-        body {
-            background-color: var(--forth-color);
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--first-color);
-        }
+    body {
+        background-color: var(--forth-color);
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: var(--first-color);
+    }
 
-        header.header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--seconed-color);
-            padding: 10px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    header.header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--seconed-color);
+        padding: 10px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
 
-        header .logo img {
-            height: 50px;
-        }
+    header .logo img {
+        height: 50px;
+    }
 
-        header .navbar a {
-            color: var(--forth-color);
-            margin: 0 10px;
-            text-decoration: none;
-            font-size: 16px;
-        }
+    header .navbar a {
+        color: var(--forth-color);
+        margin: 0 10px;
+        text-decoration: none;
+        font-size: 16px;
+    }
 
-        header .navbar a:hover {
-            color: var(--third-color);
-        }
+    header .navbar a:hover {
+        color: var(--third-color);
+    }
 
-        header .icons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    header .icons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-        header .search-form {
-            display: none;
-        }
+    header .search-form {
+        display: none;
+    }
 
-        h3 {
-            text-align: center;
-            color: var(--first-color);
-            margin: 20px 0;
-        }
+    h3 {
+        text-align: center;
+        color: var(--first-color);
+        margin: 20px 0;
+    }
 
-        .room-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            padding: 20px;
-        }
+    .room-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Space between cards */
+        justify-content: center;
+        padding: 20px;
+    }
 
+    .room-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        margin: 35px;
+        width: calc(50% - 20px); /* Two cards per row */
+        text-align: center;
+        transition: transform 0.3s;
+    }
+
+    .room-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .room-card img {
+        width: 100%;
+        height: 150px;
+        border-radius: 10px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .room-card h4 {
+        margin: 10px 0;
+        font-size: 20px;
+        color: var(--first-color);
+    }
+
+    .room-card p {
+        margin: 5px 0 15px;
+        font-size: 16px;
+        color: var(--third-color);
+    }
+
+    .btn {
+        display: inline-block;
+        background-color: var(--seconed-color);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: var(--first-color);
+    }
+
+    @media (max-width: 768px) {
         .room-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 300px;
-            text-align: center;
-            transition: transform 0.3s;
+            width: 100%; /* Make cards full-width on smaller screens */
         }
+    }
+</style>
 
-        .room-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .room-card img {
-            width: 100%;
-            height: 150px;
-            border-radius: 10px;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        .room-card h4 {
-            margin: 10px 0;
-            font-size: 20px;
-            color: var(--first-color);
-        }
-
-        .room-card p {
-            margin: 5px 0 15px;
-            font-size: 16px;
-            color: var(--third-color);
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--seconed-color);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: var(--first-color);
-        }
-    </style>
 </head>
 <body>
 <!-- Header Section -->
