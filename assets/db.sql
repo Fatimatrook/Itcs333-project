@@ -75,21 +75,23 @@ COMMIT;
 -- Table structure for table `rooms`
 --
 
-CREATE TABLE `rooms` (
+CREATE TABLE `rooms` ( 
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room_name` varchar(50) NOT NULL,
   `capacity` int(11) NOT NULL,
   `equipment` text NOT NULL,
+  `image` varchar(255) NOT NULL, -- New column for image filenames
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 -- Dumping data for table `rooms`
 
-INSERT INTO `rooms` (`room_name`, `capacity`, `equipment`) VALUES
-('Room A', 10, 'Projector, Whiteboard, Wi-Fi'),
-('Room B', 20, 'Projector, Conference Phone, Wi-Fi'),
-('Room C', 15, 'Whiteboard, Wi-Fi'),
-('Room D', 30, 'Projector, Conference Phone, Wi-Fi, Air Conditioning');
+INSERT INTO `rooms` (`room_name`, `capacity`, `equipment`, `image`) VALUES
+('Room A', 10, 'Projector, Whiteboard, Wi-Fi', 'A.png'),
+('Room B', 20, 'Projector, Conference Phone, Wi-Fi', 'B.png'),
+('Room C', 15, 'Whiteboard, Wi-Fi', 'C.png'),
+('Room D', 30, 'Projector, Conference Phone, Wi-Fi, Air Conditioning', 'D.png');
 
 -- Indexes for table `rooms`
 ALTER TABLE `rooms`
@@ -103,6 +105,7 @@ ALTER TABLE `rooms`
 
 COMMIT;
 
+ALTER TABLE `rooms` ADD `image` VARCHAR(255) NOT NULL;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;                                                                                        
