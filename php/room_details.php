@@ -198,8 +198,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
 
         <div class="room-details">
         <?php
-if (!empty($room['image_path'])) {
-    echo '<img src="images/' . htmlspecialchars($room['image_path']) . '" alt="' . htmlspecialchars($room['room_name']) . '" style="width:100%;max-width:400px;border-radius:10px;margin-bottom:20px;">';
+if (!empty($room['image'])) {
+    echo '<img src="images/' . htmlspecialchars($room['image']) . '" alt="' . htmlspecialchars($room['room_name']) . '" style="width:100%;max-width:400px;border-radius:10px;margin-bottom:20px;">';
 }
 ?>
             <h4><?php echo htmlspecialchars($room['room_name']); ?></h4>
