@@ -170,7 +170,10 @@ if ($result_rooms === false) {
            if ($result_rooms && $result_rooms->num_rows > 0) {
             while ($room = $result_rooms->fetch_assoc()) {
                 // Display each room with a link to its details page
-                echo '<div class="room">';
+                echo '<div class="room-card">';
+                if (!empty($room['image_path'])) {
+                    echo '<img src="images/' . htmlspecialchars($room['image_path']) . '" alt="' . htmlspecialchars($room['room_name']) . '">';
+                }
                 echo '<h4>' . htmlspecialchars($room['room_name']) . '</h4>';
                 echo '<p>Capacity: ' . htmlspecialchars($room['capacity']) . ' people</p>';
                 echo '<a href="room_details.php?room_id=' . $room['id'] . '" class="btn">View Details</a>';
