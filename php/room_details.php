@@ -4,7 +4,6 @@ $conn = new mysqli('localhost', 'root', '', 'itcs333project');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-require_once 'common-db-setting.php'; // Ensure you have the database connection here
 
 // Get the room_id from the URL
 if (isset($_GET['room_id'])) {
