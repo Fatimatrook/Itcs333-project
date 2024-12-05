@@ -1,0 +1,67 @@
+:root {
+    --first-color: #2e4756; /* Darker shade for better visibility */
+    --seconed-color: #6fb8e0; /* Softer and slightly darker light blue */
+    --third-color: #84a9ac;
+    --forth-color: #f4f8f9; /* Slightly lighter background for contrast */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: var(--second-color); /* Improved visibility */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header a.logo img {
+    height: 50px;
+}
+
+.navbar {
+    display: flex;
+    gap: 15px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: var(--seconed-color);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--forth-color);
+    min-width: 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    padding: 10px 0;
+    border-radius: 4px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    color: var(--first-color);
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--seconed-color);
+    color: white;
+}
