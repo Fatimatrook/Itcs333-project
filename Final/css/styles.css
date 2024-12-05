@@ -1,0 +1,226 @@
+:root{
+    --first-color:#243642;
+    --seconed-color: #387478;
+    --third-color:#629584;
+    --forth-color: #E2F1E7;}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;}
+
+body{background: var(--forth-color);}
+
+section{
+    padding: 20px 7%;}
+
+.btn{
+    margin-top: 5px;
+    display: inline-block;
+    padding: 9px 30px;
+    font-size: 17px;
+    color: #fff;
+    border: none; 
+    border-radius: 4px; 
+    background:var(--first-color) ;}
+.btn:hover{background-color: var(--seconed-color);}
+
+.header{
+    background: var(--forth-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between ;
+    padding: 15px 7%;
+    border-bottom: var(--first-color);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;}
+
+.header .logo img{height: 60px;}
+
+.header .navbar a{
+    margin:0 10px;
+    font-size: 16px;
+    color: var(--first-color);}
+
+.header .navbar a:hover{
+    color: var(--seconed-color);
+    border-bottom: 10px solid var(--seconed-color);
+    padding-bottom: 5px;}
+
+.header .icons div{
+    color: var(--first-color);
+    cursor: pointer;
+    font-size: 25px;
+    margin-left: 20px;}
+
+.header .icons div:hover{color: var(--seconed-color);}
+
+#menu-btn{display: none;}
+.header .search-form{
+    position: absolute;
+    top: 115%; right: 7%;
+    background: var(--forth-color);
+    width: 500px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    transform: scaleY(0);
+    transform-origin: top;}
+
+.header .search-form.active{
+    transform: scaleY(1);}
+
+.header .search-form input{
+    height: 100%;
+    width: 100%;
+    font-size: 1.6rem;
+    color: #000;
+    padding: 1rem;
+    text-transform: none;}
+
+.header .search-form label{
+    cursor: pointer;
+    font-size: 2.2rem;
+    margin-right: 1.5rem;
+    color: #000;}
+
+.header .search-form label:hover{color: var(--first-color);}
+
+.home{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background:var(--third-color);}
+
+.home .content{max-width: 600px;}
+
+.home .content h3{
+    margin: 10px;
+    font-size: 60px;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 10%;
+    text-align: center;}
+
+.home .content span{color: var(--first-color);}    
+
+.home .content p{
+    margin: 10px;
+    font-size: 20px;
+    font-weight: lighter;
+    line-height: 1.8;
+    padding: 5px;
+    color: #eee;
+}
+ .home .content img{
+    padding-top: 20%;
+    padding-left: 120%;
+    width: 50%;
+
+ }
+
+
+
+ /* CSS of footer */
+ .footer{
+    background: var(--forth-color)} /* Color of the background of the footer */
+  
+  .footer .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25px,1fr));
+    gap: 5px;}
+  
+  .footer .box-container .box h3{
+    font-size: 25px;
+    color: var(--first-color);
+    padding: 25px 0;}
+  
+  .footer .box-container .box p{
+    font-size: 15px;
+    color: var(--seconed-color);
+    padding: 10px 0;
+    line-height: 2;}
+  
+  .footer .box-container .box a{
+    display: block;
+    font-size: 15px;
+    color: var(--seconed-color);
+    padding: 10px 0;}
+  
+  .footer .box-container .box a:hover{
+    color: var(--third-color);}
+  
+  .footer .box-container .box a i{
+    padding-right: 15px;
+    color: var(--first-color);}
+  
+  .footer .end{
+    margin-top: 25px;
+    padding: 10px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,.3);
+    text-align: center;
+    color: var(--seconed-color);
+    font-size: 20px;}
+  
+  .footer .end span{
+    color: var(--first-color);
+  }/* end */
+
+
+/*media queries*/
+@media (max-width:991px){
+    html{
+        font-size: 55%;
+    }
+    .header{
+        padding: 1.5rem 2rem;
+    }
+    section{
+        padding: 2rem;
+    }
+}
+
+@media (max-width:768px){
+    #menu-btn{
+        display: inline-block;
+    }
+    .header .navbar{
+        position: absolute;
+        top: 100%; right: -100%;
+        background: var(--forth-color);
+        width: 30rem;
+        height: calc(100vh - 9.5rem);
+    }
+    .header .navbar.active{
+        right: 0;
+    }
+    .header .navbar a{
+        color: #000;
+        display: block;
+        margin: 1.5rem;
+        padding: .5rem;
+        font-size: 2rem;
+    }
+    .header .search-form{
+        width: 90%;
+        right: 2rem;
+    }
+    .home {
+        justify-content: center;
+        text-align: center;
+    }
+    .home .content H3{
+        font-size: 4.5rem;
+    }
+    .home .content P{
+        font-size: 1.5rem;
+    }
+
+}
+@media (max-width:450px){
+    html{
+        font-size: 50%;
+    }
+    
+}
