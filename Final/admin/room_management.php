@@ -3,7 +3,7 @@ include '../common-db-settings.php'; // Include the database connection
 include 'header.php';  
 // Variables for Add/Edit actions
 $action = $_GET['action'] ?? 'list'; // Determines current action
-$id = $_GET['id'] ?? null;           // Room ID for Edit/Delete
+$id = $_GET['id'] ?? null;           // Room ID for Edit/Del
 $message = '';
 
 // Handle Add or Edit form submission

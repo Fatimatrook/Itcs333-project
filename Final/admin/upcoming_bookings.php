@@ -2,7 +2,7 @@
 include '../common-db-settings.php'; // Include the database connection
 include 'header.php';  // Include the header for navigation
 
-// Default query for all upcoming bookings
+// Default query for all upcoming booking
 $query = "SELECT * FROM bookings WHERE start_date >= CURDATE() ORDER BY start_date, start_time";
 
 // Initialize the start_date and end_date values

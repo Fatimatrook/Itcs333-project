@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../common-db-settings.php'; // Include the database connection
+include '../common-db-settings.php'; // Include the database 
 include 'header.php';  
 
 // Variables for Add/Edit actions

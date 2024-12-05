@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Hardcoded credentials
+
 $username = "admin";
 $password = "123";
 

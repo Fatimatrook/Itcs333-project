@@ -1,5 +1,5 @@
 <?php
-include 'sessionHandler.php';  // Include the header for navigation
+include 'sessionHandler.php';  // Include the header for navigat
 ?>
 <!DOCTYPE html>
 <html lang="en">
