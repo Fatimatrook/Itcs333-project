@@ -1,5 +1,5 @@
 <?php
-include '../common-db-settings.php';
+include 'common-db-settings.php';
 include 'header.php';
 // Query to get booking frequency by day
 $booking_frequency_query = "SELECT DATE(b.start_date) AS booking_date, COUNT(b.id) AS bookings_count
@@ -30,8 +30,20 @@ if (!$peak_booking_times_result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Usage Analytics</title>
-    <link rel="stylesheet" href="../css/style5.css">
-
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        canvas {
+            margin-bottom: 50px;
+        }
+    </style>
     <!-- Add Chart.js CDN for visualizations -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>

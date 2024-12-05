@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../common-db-settings.php'; // Include the database connection
+include 'common-db-settings.php'; // Include the database connection
 include 'header.php';  
 
 // Variables for Add/Edit actions
@@ -95,7 +95,7 @@ function check_booking_conflict($conn, $room_id, $start_date, $end_date, $start_
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schedule Management</title>
-    <link rel="stylesheet" href="../css/style4.css">
+    <link rel="stylesheet" href="style4.css">
 </head>
 <body>
     <div class="container">

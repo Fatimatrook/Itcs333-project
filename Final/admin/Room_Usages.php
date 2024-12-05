@@ -1,5 +1,5 @@
 <?php
-include '../common-db-settings.php'; // Include the database connection
+include 'common-db-settings.php'; // Include the database connection
 include 'header.php';  // Include the header for navigation
 
 // Query to get room usage report
@@ -47,7 +47,7 @@ $booking_duration_result = $conn->query($booking_duration_query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Usage and Popularity Reports</title>
-    <link rel="stylesheet" href="../css/style4.css">
+    <link rel="stylesheet" href="style4.css">
 </head>
 <body>
     <div class="container">

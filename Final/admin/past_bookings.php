@@ -1,7 +1,6 @@
 <?php
-include '../common-db-settings.php'; // Include the database connection
-include 'header.php'; 
-include 'sessionHandler.php';  // Include the header for navigation
+include 'common-db-settings.php'; // Include the database connection
+include 'header.php';  // Include the header for navigation
 
 // Default query for all past bookings
 $query = "SELECT * FROM bookings WHERE end_date < CURDATE() ORDER BY end_date DESC";

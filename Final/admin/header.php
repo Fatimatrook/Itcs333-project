@@ -1,6 +1,3 @@
-<?php
-include 'sessionHandler.php';  // Include the header for navigation
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

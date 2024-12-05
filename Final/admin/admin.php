@@ -1,5 +1,5 @@
 <?php
-include '../common-db-settings.php'; // Include the database connection
+include 'common-db-settings.php'; // Include the database connection
 include 'header.php';  // Include the header for navigation
 
 // Query to get total bookings per room

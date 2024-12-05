@@ -1,5 +1,5 @@
 <?php
-include '../common-db-settings.php'; // Include the database connection
+include 'common-db-settings.php'; // Include the database connection
 include 'header.php';  
 // Variables for Add/Edit actions
 $action = $_GET['action'] ?? 'list'; // Determines current action
@@ -62,7 +62,7 @@ if ($action == 'edit' && $id) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Management</title>
-    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
     <div class="container">
